@@ -6,6 +6,11 @@ from django.conf.urls import patterns, include, url
 
 import contacts.views
 
+from django.conf.urls.defaults import *
+from contacts.api import EntryResource
+
+entry_resource = EntryResource()
+
 urlpatterns = patterns('',
 	url(r'^$', contacts.views.ContactListView.as_view(),
 		name='contacts-list',
@@ -13,7 +18,7 @@ urlpatterns = patterns('',
 	url(r'^new$', contacts.views.CreateContactView.as_view(),
 		name='contacts-new',
 	),
-
+	(r'^api/', include(entry_resource.urls)),
     # Examples:
     # url(r'^$', 'psmserver.views.home', name='home'),
     # url(r'^psmserver/', include('psmserver.foo.urls')),
