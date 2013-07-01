@@ -7,9 +7,12 @@ from django.conf.urls import patterns, include, url
 import contacts.views
 
 from django.conf.urls import *
-from contacts.api import EntryResource
+from tastypie.api import Api
+from contacts.api import ContactResource, UserResource
 
-entry_resource = EntryResource()
+v1_api = Api(api_name='v1')
+v1_api.register(UserResource())
+v1_api.register(ContactResource())
 
 urlpatterns = patterns('',
 	url(r'^$', contacts.views.ContactListView.as_view(),
@@ -18,7 +21,7 @@ urlpatterns = patterns('',
 	url(r'^new$', contacts.views.CreateContactView.as_view(),
 		name='contacts-new',
 	),
-	(r'^api/', include(entry_resource.urls)),
+	(r'^api/', include(v1_api.urls)),
     # Examples:
     # url(r'^$', 'psmserver.views.home', name='home'),
     # url(r'^psmserver/', include('psmserver.foo.urls')),
