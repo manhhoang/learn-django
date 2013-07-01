@@ -6,7 +6,7 @@ from django.conf.urls import patterns, include, url
 
 import contacts.views
 
-from django.conf.urls.defaults import *
+from django.conf.urls import *
 from contacts.api import EntryResource
 
 entry_resource = EntryResource()
